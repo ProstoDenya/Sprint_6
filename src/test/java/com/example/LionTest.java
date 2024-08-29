@@ -1,4 +1,4 @@
-package test.java.com.example;
+package com.example;
 
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -42,5 +42,22 @@ public class LionTest extends TestCase {
         lion = new Lion(MALE, feline);
         lion.getFood();
         Mockito.verify(feline).getFood(Mockito.anyString());
+    }
+
+    @Test
+    public void testLionCreationForFemale() throws Exception{
+        Feline feline = new Feline();
+        Lion lioness = new Lion("Самка", feline);
+        assertFalse(lioness.doesHaveMane());
+    }
+
+    @Test
+    public void testDoesHaveMane() throws Exception{
+        Feline feline = new Feline();
+        Lion lion = new Lion("Самец", feline);
+        assertTrue(lion.doesHaveMane());
+
+        Lion lioness = new Lion("Самка", feline);
+        assertFalse(lioness.doesHaveMane());
     }
 }

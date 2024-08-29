@@ -15,11 +15,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.10</version>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
@@ -54,14 +49,10 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
-                        <!--id выбираешь самостоятельно-->
                         <id>prepare-agent</id>
-                        <!--в какой фазе maven будет выполняться цель-->
-                        <phase>initialize</phase>
-                        <!--цель jacoco, которую нужно выполнить-->
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
@@ -72,6 +63,10 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

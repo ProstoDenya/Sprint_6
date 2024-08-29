@@ -8,6 +8,7 @@ import org.junit.runners.Parameterized;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 @RunWith(Parameterized.class)
 public class AnimalTestWithParams {
@@ -44,4 +45,38 @@ public class AnimalTestWithParams {
         assertEquals("Еда не соответствует виду животного",
                 foods, actual);
     }
+
+    @Test
+    public void testGetFoodForHerbivore() throws Exception {
+        Animal animal = new Animal();
+        List<String> expectedFood = List.of("Трава", "Различные растения");
+        List<String> actualFood = animal.getFood("Травоядное");
+        assertEquals(expectedFood, actualFood);
+    }
+
+    @Test
+    public void testGetFoodForPredator() throws Exception {
+        Animal animal = new Animal();
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        List<String> actualFood = animal.getFood("Хищник");
+        assertEquals(expectedFood, actualFood);
+    }
+
+    @Test
+    public void testGetFoodForUnknownAnimalKindThrowsException() {
+        Animal animal = new Animal();
+        Exception exception = assertThrows(Exception.class, () -> {
+            animal.getFood("Неизвестный вид");
+        });
+        assertEquals("Неизвестный вид животного, используйте значение Травоядное или Хищник", exception.getMessage());
+    }
+
+    @Test
+    public void testGetFamily() {
+        Animal animal = new Animal();
+        String expectedFamily = "Существует несколько семейств: заячьи, беличьи, мышиные, кошачьи, псовые, медвежьи, куньи";
+        String actualFamily = animal.getFamily();
+        assertEquals(expectedFamily, actualFamily);
+    }
+
 }
